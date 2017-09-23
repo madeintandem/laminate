@@ -24,7 +24,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "validate": "yarn lint && yarn test",
-    "verify-and-publish": "yarn clean:light && yarn validate && yarn build && yarn publish"
+    "verify-and-publish": "yarn validate && yarn publish"
   },
   "jest": {
     "preset": "react-native",
