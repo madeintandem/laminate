@@ -43,5 +43,13 @@
   "dependencies": {
     "hoist-non-react-statics": "^2.3.1",
     "prop-types": "^15.5.10"
+  },
+  "peerDependencies": {
+    "react": ">=15.6.0",
+    "react-router-native": ">=4.2.0"
+  },
+  "devDependencies": {
+    "react": "^15.6.1",
+    "react-native": "^0.48.4"
   }
 }
