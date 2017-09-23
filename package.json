@@ -1,0 +1,43 @@
+{
+  "name": "laminate",
+  "version": "0.0.1",
+  "description": "Route stack components for React Router v4",
+  "keywords": [
+    "component",
+    "react",
+    "router",
+    "stack",
+    "native",
+    "react-native"
+  ],
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "repository": "https://github.com/devmynd/laminate",
+  "author": "Michael Crismali",
+  "license": "MIT",
+  "scripts": {
+    "clean": "git clean -fdX",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "validate": "yarn lint && yarn test",
+    "verify-and-publish": "yarn clean:light && yarn validate && yarn build && yarn publish"
+  },
+  "jest": {
+    "clearMocks": true,
+    "resetModules": true,
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "setupTestFrameworkScriptFile": "../node_modules/jest-enzyme/lib/index.js",
+    "setupFiles": [
+      "../jest/setup.js"
+    ],
+    "modulePaths": [
+      "<rootDir>/jest/"
+    ]
+  }
+}
