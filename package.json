@@ -39,5 +39,9 @@
     "modulePaths": [
       "<rootDir>/jest/"
     ]
+  },
+  "dependencies": {
+    "hoist-non-react-statics": "^2.3.1",
+    "prop-types": "^15.5.10"
   }
 }
