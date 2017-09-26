@@ -42,6 +42,9 @@
     ],
     "modulePaths": [
       "<rootDir>/jest/"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/?!(react-native|react-router-native)/"
     ]
   },
   "dependencies": {
