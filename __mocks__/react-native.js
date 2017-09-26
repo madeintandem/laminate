@@ -10,17 +10,23 @@ class Value {
   }
 }
 
-const View = ({ children }) => children
-View.displayName = 'Animated.View'
+const AnimatedView = ({ children }) => children
+AnimatedView.displayName = 'Animated.View'
 
-const Animated = { Value, View }
+const Animated = { Value, View: AnimatedView }
 
 const Dimensions = { get: jest.fn(() => ({ width: 375, height: 667 })) }
+
+const PanResponder = { create: jest.fn((args) => ({ panResponder: args })) }
+
+const View = ({ children }) => children
 
 const StyleSheet = { create: jest.fn(styles => styles) }
 
 export {
   Animated,
   Dimensions,
-  StyleSheet
+  PanResponder,
+  StyleSheet,
+  View
 }
