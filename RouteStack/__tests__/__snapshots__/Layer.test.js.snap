@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders its children with a slide animation 1`] = `
+<Animated.View
+  style={
+    Array [
+      Object {
+        "height": "100%",
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      },
+      Object {
+        "left": Object {
+          "args": Object {
+            "inputRange": Array [
+              0,
+              1,
+            ],
+            "outputRange": Array [
+              375,
+              0,
+            ],
+          },
+          "interpolated": 0,
+        },
+        "zIndex": 123,
+      },
+    ]
+  }
+>
+  <Child />
+</Animated.View>
+`;

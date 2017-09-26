@@ -4,7 +4,6 @@ import { Animated, Dimensions, StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
     position: 'absolute',
     width: '100%',
     height: '100%',
