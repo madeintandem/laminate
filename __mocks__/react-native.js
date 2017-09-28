@@ -13,7 +13,13 @@ class Value {
 const AnimatedView = ({ children }) => children
 AnimatedView.displayName = 'Animated.View'
 
-const Animated = { Value, View: AnimatedView }
+const animatedTimingStart = jest.fn()
+const Animated = {
+  Value,
+  View: AnimatedView,
+  timing: jest.fn(() => ({ start: animatedTimingStart })),
+  animatedTimingStart
+}
 
 const Dimensions = { get: jest.fn(() => ({ width: 375, height: 667 })) }
 

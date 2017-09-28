@@ -1,5 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
+import { Animated } from 'react-native'
 import { shallow } from 'enzyme'
 import { RouteStack } from '../RouteStack'
 
@@ -24,5 +25,282 @@ describe('default state', () => {
 
     expect(animation.value).toEqual(1)
     expect(children).toEqual(givenChildren)
+  })
+})
+
+describe('#getChildContext', () => {
+  it('is the router from context with wrapped history', () => {
+    const router = { history: { some: 'dummy' }, foo: 'bar' }
+    const Child = () => 'some child'
+    const subject = shallow(<RouteStack shouldAnimatePath={jest.fn()}>
+      <Child />
+    </RouteStack>, { context: { router } })
+    expect(subject.instance().getChildContext().router).toEqual({
+      foo: 'bar',
+      history: subject.instance().wrappedHistory()
+    })
+  })
+})
+
+describe('#wrappedHistory', () => {
+  it('is the history object from context with push, replace, and goBack overridden', () => {
+    const router = {
+      history: {
+        some: 'dummy',
+        push: 'foo',
+        goBack: 'bar',
+        replace: 'baz'
+      },
+      foo: 'bar'
+    }
+    const Child = () => 'some child'
+    const subject = shallow(<RouteStack shouldAnimatePath={jest.fn()}>
+      <Child />
+    </RouteStack>, { context: { router } })
+
+    expect(subject.instance().wrappedHistory()).toEqual({
+      some: 'dummy',
+      push: subject.instance().push,
+      goBack: subject.instance().goBack,
+      replace: subject.instance().replace
+    })
+  })
+})
+
+describe('#push', () => {
+  let history
+  let shouldAnimatePath
+  let subject
+
+  beforeEach(() => {
+    history = { push: jest.fn() }
+    shouldAnimatePath = jest.fn(() => 'shouldAnimatePath')
+    const router = { history }
+    const Child = () => 'some child'
+    subject = shallow(<RouteStack shouldAnimatePath={shouldAnimatePath}>
+      <Child />
+    </RouteStack>, { context: { router } })
+  })
+
+  it('does nothing when animating', () => {
+    subject.instance().isAnimating = true
+    subject.instance().push('/path', 1, 2, 3)
+    expect(shouldAnimatePath).not.toHaveBeenCalled()
+    expect(history.push).not.toHaveBeenCalled()
+  })
+
+  describe('when not animating', () => {
+    beforeEach(() => {
+      subject.instance().isAnimating = false
+      subject.instance().push('/path', 1, 2, 3)
+    })
+
+    it('sets pushing to the result of shouldAnimatePath', () => {
+      expect(shouldAnimatePath).toHaveBeenCalledWith('/path')
+      expect(subject.instance().pushing).toEqual('shouldAnimatePath')
+    })
+
+    it('pushes onto history', () => {
+      expect(history.push).toHaveBeenCalledWith('/path', 1, 2, 3)
+    })
+  })
+})
+
+describe('#replace', () => {
+  let history
+  let subject
+
+  beforeEach(() => {
+    history = { replace: jest.fn() }
+    const router = { history }
+    const Child = () => 'some child'
+    subject = shallow(<RouteStack shouldAnimatePath={jest.fn()}>
+      <Child />
+    </RouteStack>, { context: { router } })
+  })
+
+  it('does nothing when animating', () => {
+    subject.instance().isAnimating = true
+    subject.instance().replace('/path', 1, 2, 3)
+    expect(history.replace).not.toHaveBeenCalled()
+  })
+
+  describe('when not animating', () => {
+    beforeEach(() => {
+      subject.instance().isAnimating = false
+      subject.instance().replacing = false
+      subject.instance().replace('/path', 1, 2, 3)
+    })
+
+    it('sets replacing to true', () => {
+      expect(subject.instance().replacing).toEqual(true)
+    })
+
+    it('replaces history', () => {
+      expect(history.replace).toHaveBeenCalledWith('/path', 1, 2, 3)
+    })
+  })
+})
+
+describe('#goBack', () => {
+  let history
+  let subject
+
+  beforeEach(() => {
+    history = { goBack: jest.fn() }
+    const router = { history }
+    const Child = () => 'some child'
+    subject = shallow(<RouteStack shouldAnimatePath={jest.fn()}>
+      <Child />
+    </RouteStack>, { context: { router } })
+  })
+
+  it('does nothing when animating', () => {
+    subject.instance().reverseAnimation = jest.fn()
+    subject.instance().isAnimating = true
+    subject.instance().goBack()
+    expect(subject.instance().reverseAnimation).not.toHaveBeenCalled()
+    expect(history.goBack).not.toHaveBeenCalled()
+  })
+
+  describe('when not animating', () => {
+    let firstFrame
+    let lastAnimation
+
+    beforeEach(() => {
+      firstFrame = { animation: new Animated.Value('bar'), children: 'stub' }
+      lastAnimation = new Animated.Value('foo')
+      subject.setState({ stack: [firstFrame, { animation: lastAnimation, children: 'stub' }] })
+      subject.instance().reverseAnimation = jest.fn((animation, callback) => callback())
+      subject.instance().isAnimating = false
+      subject.instance().goBack(1, 2, 3)
+    })
+
+    it('reverses the last animation', () => {
+      expect(subject.instance().reverseAnimation).toHaveBeenCalledWith(lastAnimation, expect.anything())
+    })
+
+    it('goes back', () => {
+      expect(history.goBack).toHaveBeenCalledWith(1, 2, 3)
+    })
+
+    it('removes the last frame from the stack', () => {
+      expect(subject).toHaveState('stack', [firstFrame])
+    })
+  })
+})
+
+describe('#forwardAnimation', () => {
+  it('calls start animation', () => {
+    const Child = () => 'some child'
+    const subject = shallow(<RouteStack shouldAnimatePath={jest.fn()}>
+      <Child />
+    </RouteStack>, { context: { router: {} } })
+    subject.instance().startAnimation = jest.fn()
+    const animation = 'animation'
+    const callback = 'callback'
+    subject.instance().forwardAnimation(animation, callback)
+
+    expect(subject.instance().startAnimation).toHaveBeenCalledWith(animation, 1, callback)
+  })
+})
+
+describe('#reverseAnimation', () => {
+  it('calls start animation', () => {
+    const Child = () => 'some child'
+    const subject = shallow(<RouteStack shouldAnimatePath={jest.fn()}>
+      <Child />
+    </RouteStack>, { context: { router: {} } })
+    subject.instance().startAnimation = jest.fn()
+    const animation = 'animation'
+    const callback = 'callback'
+    subject.instance().reverseAnimation(animation, callback)
+
+    expect(subject.instance().startAnimation).toHaveBeenCalledWith(animation, 0, callback)
+  })
+})
+
+describe('#startAnimation', () => {
+  let subject
+
+  beforeEach(() => {
+    const Child = () => 'some child'
+    subject = shallow(<RouteStack shouldAnimatePath={jest.fn()}>
+      <Child />
+    </RouteStack>, { context: { router: {} } })
+    subject.instance().isAnimating = false
+    subject.instance().animationPercentage = 0.5
+  })
+
+  it('sets isAnimating to true', () => {
+    subject.instance().startAnimation('animation', 3)
+    expect(subject.instance().isAnimating).toEqual(true)
+  })
+
+  it('calls animated timing', () => {
+    subject.instance().startAnimation('animation', 3)
+    expect(Animated.timing).toHaveBeenCalledWith('animation', { toValue: 3, duration: 1500 })
+  })
+
+  it('starts the animated timing', () => {
+    subject.instance().startAnimation('animation', 3)
+    expect(Animated.animatedTimingStart).toHaveBeenCalled()
+  })
+
+  describe('when finishing the animation', () => {
+    const finishedAnimationCallback = () => {
+      Animated.animatedTimingStart.mock.calls[0][0]() // invoke callback given to `start`
+    }
+
+    beforeEach(() => {
+      subject.instance().animationPercentage = 0.5
+      subject.instance().isAnimating = true
+    })
+
+    it('sets the animation percentage to 1', () => {
+      subject.instance().startAnimation('animation', 3)
+      finishedAnimationCallback()
+      expect(subject.instance().animationPercentage).toEqual(1)
+    })
+
+    it('sets is animating to false', () => {
+      subject.instance().startAnimation('animation', 3)
+      finishedAnimationCallback()
+      expect(subject.instance().isAnimating).toEqual(false)
+    })
+
+    it('calls the callback when given', () => {
+      const callback = jest.fn()
+      subject.instance().startAnimation('animation', 3, callback)
+      finishedAnimationCallback()
+      expect(callback).toHaveBeenCalled()
+    })
+
+    it('does not throw an error without a callback', () => {
+      expect(() => {
+        subject.instance().startAnimation('animation', 3)
+        finishedAnimationCallback()
+      }).not.toThrow()
+    })
+  })
+})
+
+describe('#lastAnimation', () => {
+  it('is the last animation in the stack', () => {
+    const Child = () => 'some child'
+    const subject = shallow(<RouteStack shouldAnimatePath={jest.fn()}>
+      <Child />
+    </RouteStack>, { context: { router: {} } })
+
+    const lastAnimation = new Animated.Value(5)
+    const firstAnimation = new Animated.Value(2)
+    subject.setState({
+      stack: [
+        { animation: firstAnimation, children: 'stub' },
+        { animation: lastAnimation, children: 'also stub' }
+      ]
+    })
+
+    expect(subject.instance().lastAnimation()).toEqual(lastAnimation)
   })
 })

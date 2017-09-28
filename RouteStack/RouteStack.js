@@ -94,8 +94,7 @@ export class RouteStack extends Component {
 
   goBack = (...args) => {
     if (this.isAnimating) { return }
-    const animation = this.state.stack[this.state.stack.length - 1].animation
-    this.reverseAnimation(animation, () => {
+    this.reverseAnimation(this.lastAnimation(), () => {
       this.history().goBack(...args)
       const stack = this.state.stack.slice(0, this.state.stack.length - 1)
       this.setState({ stack })
