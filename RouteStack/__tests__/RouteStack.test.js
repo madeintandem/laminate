@@ -42,6 +42,70 @@ describe('#getChildContext', () => {
   })
 })
 
+describe('#componentWillReceiveProps', () => {
+  let subject
+
+  beforeEach(() => {
+    const router = { history: { some: 'dummy' }, foo: 'bar' }
+    const Child = () => 'some child'
+    subject = shallow(<RouteStack shouldAnimatePath={jest.fn()}>
+      <Child />
+    </RouteStack>, { context: { router } })
+    subject.instance().forwardAnimation = jest.fn()
+  })
+
+  describe('when pushing', () => {
+    it('adds a new frame to the stack', () => {
+      subject.instance().pushing = true
+      subject.setProps({ children: <div /> })
+      expect(subject.state('stack')).toHaveLength(2)
+      expect(subject.state('stack')[1].children).toEqual(<div />)
+    })
+
+    it('sets pushing to false', () => {
+      subject.instance().pushing = true
+      subject.setProps({ children: <div /> })
+      expect(subject.instance().pushing).toEqual(false)
+    })
+
+    it('calls forward animation with the new animation', () => {
+      subject.instance().pushing = true
+      subject.setProps({ children: <div /> })
+      expect(subject.instance().forwardAnimation).toHaveBeenCalledWith(subject.state('stack')[1].animation)
+      expect(subject.instance().forwardAnimation).not.toHaveBeenCalledWith(subject.state('stack')[0].animation)
+    })
+  })
+
+  describe('when replacing', () => {
+    it('replaces the children of the last frame in the stack', () => {
+      subject.instance().replacing = true
+      subject.setProps({ children: <div /> })
+      expect(subject.state('stack')).toHaveLength(1)
+      expect(subject.state('stack')[0].children).toEqual(<div />)
+    })
+
+    it('sets replacing to false', () => {
+      subject.instance().replacing = true
+      subject.setProps({ children: <div /> })
+      expect(subject.instance().replacing).toEqual(false)
+    })
+  })
+
+  describe('when not replacing or pushing', () => {
+    it('sets pushing to false', () => {
+      subject.instance().pushing = null
+      subject.setProps({ children: <div /> })
+      expect(subject.instance().pushing).toEqual(false)
+    })
+
+    it('sets replacing to false', () => {
+      subject.instance().replacing = null
+      subject.setProps({ children: <div /> })
+      expect(subject.instance().replacing).toEqual(false)
+    })
+  })
+})
+
 describe('#wrappedHistory', () => {
   it('is the history object from context with push, replace, and goBack overridden', () => {
     const router = {

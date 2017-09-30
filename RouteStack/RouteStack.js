@@ -58,15 +58,16 @@ export class RouteStack extends Component {
       const animation = new Animated.Value(0)
       const stack = [...oldStack, { children: nextProps.children, animation }]
       this.setState({ stack }, () => this.forwardAnimation(animation))
-      this.pushing = false
     } else if (this.replacing) {
       const frame = oldStack[oldStack.length - 1]
       frame.children = nextProps.children
       const stack = oldStack.slice(0, oldStack.length - 1)
       stack.push(frame)
       this.setState({ stack })
-      this.replacing = false
     }
+
+    this.pushing = false
+    this.replacing = false
   }
 
   wrappedHistory = () => {
