@@ -434,3 +434,20 @@ describe('#handleGestureEnded', () => {
     })
   })
 })
+
+describe('#render', () => {
+  it('renders properly', () => {
+    const Child = () => 'some child'
+    const subject = shallow(<RouteStack shouldAnimatePath={jest.fn()}>
+      <Child />
+    </RouteStack>, { context: { router: {} } })
+    subject.setState({
+      stack: [
+        { children: 'some child', animation: new Animated.Value(1) },
+        { children: 'another child', animation: new Animated.Value(1) }
+      ]
+    })
+
+    expect(subject).toMatchSnapshot()
+  })
+})
