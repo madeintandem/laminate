@@ -8,6 +8,10 @@ class Value {
   interpolate (args) {
     return { interpolated: this.value, args: args }
   }
+
+  setValue (value) {
+    this.value = value
+  }
 }
 
 const AnimatedView = ({ children }) => children
@@ -23,7 +27,7 @@ const Animated = {
 
 const Dimensions = { get: jest.fn(() => ({ width: 375, height: 667 })) }
 
-const PanResponder = { create: jest.fn((args) => ({ panResponder: args })) }
+const PanResponder = { create: jest.fn((args) => args) }
 
 const View = ({ children }) => children
 

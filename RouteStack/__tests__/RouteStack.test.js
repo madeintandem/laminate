@@ -304,3 +304,133 @@ describe('#lastAnimation', () => {
     expect(subject.instance().lastAnimation()).toEqual(lastAnimation)
   })
 })
+
+describe('#panResponder', () => {
+  let subject
+  let panResponder
+
+  beforeEach(() => {
+    const Child = () => 'some child'
+    subject = shallow(<RouteStack shouldAnimatePath={jest.fn()}>
+      <Child />
+    </RouteStack>, { context: { router: {} } })
+    panResponder = subject.instance().panResponder
+  })
+
+  describe('#onMoveShouldSetPanResponderCapture', () => {
+    let event
+    let gestureState
+
+    beforeEach(() => {
+      subject.setState({
+        stack: [
+          { children: 'some child', animation: new Animated.Value(1) },
+          { children: 'another child', animation: new Animated.Value(1) }
+        ]
+      })
+      subject.instance().isAnimating = false
+
+      event = { nativeEvent: { pageX: 59 } }
+      gestureState = { dx: 1 }
+    })
+
+    describe('it is true when', () => {
+      it('has a stack > 1, is not animating, the touch is in range, and it has moved', () => {
+        const result = panResponder.onMoveShouldSetPanResponderCapture(event, gestureState)
+        expect(result).toEqual(true)
+      })
+    })
+
+    describe('it is false when', () => {
+      it('has a stack of 1', () => {
+        subject.setState({ stack: [{ children: 'some child', animation: new Animated.Value(1) }] })
+        const result = panResponder.onMoveShouldSetPanResponderCapture(event, gestureState)
+        expect(result).toEqual(false)
+      })
+
+      it('is animating', () => {
+        subject.instance().isAnimating = true
+        const result = panResponder.onMoveShouldSetPanResponderCapture(event, gestureState)
+        expect(result).toEqual(false)
+      })
+
+      it('has an out of range touch', () => {
+        event = { nativeEvent: { pageX: 61 } }
+        const result = panResponder.onMoveShouldSetPanResponderCapture(event, gestureState)
+        expect(result).toEqual(false)
+      })
+
+      it('has not moved', () => {
+        gestureState = { dx: 0 }
+        const result = panResponder.onMoveShouldSetPanResponderCapture(event, gestureState)
+        expect(result).toEqual(false)
+      })
+    })
+  })
+
+  describe('#onPanResponderMove', () => {
+    it('sets the last animation\'s value to the percentage remaining across the screen that the gesture can move', () => {
+      const event = {}
+      const gestureState = { dx: 75 }
+      panResponder.onPanResponderMove(event, gestureState)
+      expect(subject.instance().lastAnimation().value).toEqual(0.8)
+
+      gestureState.dx = 150
+      panResponder.onPanResponderMove(event, gestureState)
+      expect(subject.instance().lastAnimation().value).toEqual(0.6)
+    })
+  })
+
+  describe('#onPanResponderTerminate', () => {
+    it('is handleGestureEnded', () => {
+      expect(panResponder.onPanResponderTerminate).toEqual(subject.instance().handleGestureEnded)
+    })
+  })
+
+  describe('#onPanResponderRelease', () => {
+    it('is handleGestureEnded', () => {
+      expect(panResponder.onPanResponderRelease).toEqual(subject.instance().handleGestureEnded)
+    })
+  })
+})
+
+describe('#handleGestureEnded', () => {
+  let subject
+  let event
+
+  beforeEach(() => {
+    event = {}
+    const Child = () => 'some child'
+    subject = shallow(<RouteStack shouldAnimatePath={jest.fn()}>
+      <Child />
+    </RouteStack>, { context: { router: {} } })
+    subject.instance().goBack = jest.fn()
+    subject.instance().forwardAnimation = jest.fn()
+  })
+
+  describe('when the gesture is mostly complete', () => {
+    it('sets the animation precentage', () => {
+      subject.instance().handleGestureEnded(event, { dx: 300 })
+      expect(subject.instance().animationPercentage).toEqual(0.8)
+    })
+
+    it('goes back', () => {
+      subject.instance().handleGestureEnded(event, { dx: 300 })
+      expect(subject.instance().goBack).toHaveBeenCalled()
+      expect(subject.instance().forwardAnimation).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('when the gesture is not mostly complete', () => {
+    it('sets the animation precentage', () => {
+      subject.instance().handleGestureEnded(event, { dx: 75 })
+      expect(subject.instance().animationPercentage).toEqual(0.2)
+    })
+
+    it('makes the animation go forward', () => {
+      subject.instance().handleGestureEnded(event, { dx: 75 })
+      expect(subject.instance().forwardAnimation).toHaveBeenCalledWith(subject.instance().lastAnimation())
+      expect(subject.instance().goBack).not.toHaveBeenCalled()
+    })
+  })
+})

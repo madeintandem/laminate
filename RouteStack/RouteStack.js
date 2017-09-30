@@ -127,6 +127,15 @@ export class RouteStack extends Component {
     return stack[stack.length - 1].animation
   }
 
+  handleGestureEnded = (event, gestureState) => {
+    this.animationPercentage = percentCompleteFromGestureState(gestureState)
+    if (this.animationPercentage > 0.5) {
+      this.goBack()
+    } else {
+      this.forwardAnimation(this.lastAnimation())
+    }
+  }
+
   panResponder = PanResponder.create({
     onMoveShouldSetPanResponderCapture: ({ nativeEvent }, gestureState) => (
       this.state.stack.length > 1 &&
@@ -135,29 +144,13 @@ export class RouteStack extends Component {
         gestureState.dx > 0
     ),
 
-    onPanResponderGrant: () => {},
-
     onPanResponderMove: (event, gestureState) => {
       this.lastAnimation().setValue(1 - percentCompleteFromGestureState(gestureState))
     },
 
-    onPanResponderTerminate: (event, gestureState) => {
-      this.animationPercentage = percentCompleteFromGestureState(gestureState)
-      if (this.animationPercentage > 0.5) {
-        this.goBack()
-      } else {
-        this.forwardAnimation(this.lastAnimation())
-      }
-    },
+    onPanResponderTerminate: this.handleGestureEnded,
 
-    onPanResponderRelease: (event, gestureState) => {
-      this.animationPercentage = percentCompleteFromGestureState(gestureState)
-      if (this.animationPercentage > 0.5) {
-        this.goBack()
-      } else {
-        this.forwardAnimation(this.lastAnimation())
-      }
-    }
+    onPanResponderRelease: this.handleGestureEnded
   })
 
   render () {
