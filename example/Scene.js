@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, Button } from 'react-native'
+import { Link, withRouter } from 'react-router-native'
 
 const styles = StyleSheet.create({
   container: {
@@ -14,6 +15,8 @@ const styles = StyleSheet.create({
   }
 })
 
+const BackButton = withRouter(({history}) => (<Button title='Back' onPress={() => history.goBack()} />))
+
 export class Scene extends Component {
   static propTypes = {
     backgroundColor: PropTypes.string.isRequired,
@@ -21,12 +24,14 @@ export class Scene extends Component {
   }
 
   render () {
-    const { text, backgroundColor } = this.props
+    const { text, backgroundColor, linkTo, disableBack } = this.props
 
     return <View style={[styles.container, { backgroundColor }]}>
       <Text style={styles.text}>
         This is scene {text}
       </Text>
+      {linkTo && <Link component={Button} to={linkTo} title={`Go to ${linkTo}`} />}
+      {disableBack || <BackButton />}
     </View>
   }
 }
