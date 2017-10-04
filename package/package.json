@@ -27,10 +27,11 @@
     "verify-and-publish": "yarn validate && yarn publish"
   },
   "babel": {
-    "presets": ["react-native"]
+    "presets": [
+      "react-native"
+    ]
   },
   "jest": {
-    "preset": "react-native",
     "clearMocks": true,
     "resetModules": true,
     "snapshotSerializers": [
@@ -58,7 +59,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.0.0",
-    "babel-jest": "^21.0.2",
+    "babel-jest": "^21.2.0",
     "babel-preset-react-native": "^4.0.0",
     "enzyme": "^2.9.1",
     "enzyme-to-json": "^2.0.0",
@@ -73,7 +74,6 @@
     "jest-enzyme": "^3.8.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.2",
-    "react-native": "^0.48.4",
     "react-router-native": "^4.2.0",
     "react-test-renderer": "^15.6.2"
   }
