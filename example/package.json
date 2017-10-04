@@ -9,11 +9,13 @@
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
+    "postinstall": "mkdir -p ./node_modules/laminate && cp -R ../package ./node_modules/laminate",
     "start": "react-native-scripts start",
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
-    "test": "node node_modules/jest/bin/jest.js --watch"
+    "test": "node node_modules/jest/bin/jest.js --watch",
+    "build": "rsync -av ../package/ ./node_modules/laminate --exclude node_modules"
   },
   "jest": {
     "preset": "jest-expo"

@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { NativeRouter, Route, Switch } from 'react-router-native'
 import { Scene } from './Scene'
+import { RouteStack } from 'laminate'
 
 const Scene1 = () => (<Scene text='1' linkTo='/2' backgroundColor='lightgreen' disableBack />)
 const Scene2 = () => (<Scene text='2' linkTo='/3' backgroundColor='lightpink' />)
@@ -13,6 +14,7 @@ export default class App extends React.Component {
     return (
       <NativeRouter>
         <View style={styles.container}>
+          <Text>{RouteStack.displayName}</Text>
           <Switch>
             <Route path='/2' component={Scene2} />
             <Route path='/3' component={Scene3} />
