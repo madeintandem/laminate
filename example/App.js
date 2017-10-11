@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { NativeRouter, Route, Switch } from 'react-router-native'
 import { Scene } from './Scene'
 import { Drawer } from './Drawer'
-import { RouteStack, AnimatedRoute, WithAnimation } from 'laminate'
+import { Stack, AnimatedRoute } from 'laminate'
 
 const Scene1 = (props) => (<Scene {...props} text='1' linkTo='/2' backgroundColor='lightgreen' disableBack />)
 const Scene2 = (props) => (<Scene {...props} text='2' linkTo='/3' backgroundColor='lightpink' />)
@@ -19,10 +19,12 @@ export default class App extends React.Component {
             {({location}) => <Text>{location.pathname}</Text>}
           </Route>
           <AnimatedRoute path='*/drawer' component={Drawer} />
-          <AnimatedRoute path='/1' component={Scene1} />
-          <AnimatedRoute path='/2' component={Scene2} />
-          <AnimatedRoute path='/3' component={Scene3} />
-          <AnimatedRoute path='/4' component={Scene4} />
+          <Stack initialLocation='/1'>
+            <Route path='/1' component={Scene1} />
+            <Route path='/2' component={Scene2} />
+            <Route path='/3' component={Scene3} />
+            <Route path='/4' component={Scene4} />
+          </Stack>
         </View>
       </NativeRouter>
     )

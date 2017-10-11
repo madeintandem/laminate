@@ -11,11 +11,13 @@ export class SceneWrapper extends Component {
   }
 
   static childContextTypes = {
+    index: PropTypes.number.isRequired,
     interpolateAnimation: PropTypes.func.isRequired
   }
 
   getChildContext () {
     return {
+      index: this.props.index,
       interpolateAnimation: this.interpolateAnimation
     }
   }
@@ -33,4 +35,4 @@ export class SceneWrapper extends Component {
   }
 }
 
-export const RouteStackAnimation = renderChildrenComponentWithContext('RouteStackAnimation', SceneWrapper.childContextTypes)
+export const WithStackAnimation = renderChildrenComponentWithContext('WithStackAnimation', SceneWrapper.childContextTypes)

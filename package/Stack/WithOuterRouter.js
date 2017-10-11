@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { WrapRouter } from './WrapRouter'
+import { WrapRouter } from '../WrapRouter'
 
-export class OuterHistory extends Component {
+export class WithOuterRouter extends Component {
   static propTypes = {
     children: PropTypes.any.isRequired
   }

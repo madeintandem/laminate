@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
+import { View, StyleSheet, Text } from 'react-native'
 import { Animation } from '../Animation'
 import { SceneWrapper } from './SceneWrapper'
 
@@ -35,18 +35,28 @@ export class InnerStack extends Component {
     }
   }
 
-  componentWillReceiveProps (nextProps) {
-    const { innerRouter: oldInnerRouter } = this.props
-    const { innerRouter: newInnerRouter } = nextProps
+  componentDidMount () {
+    this.props.animation.play()
+  }
 
-    if (newInnerRouter.history.action === 'REPLACE') {
-      this.handleReplace(nextProps)
-      // history is mutable so this is maybe a problem to work around
-    } else if (oldInnerRouter.history.length !== newInnerRouter.history.length) {
-      switch (newInnerRouter.history.action) {
-        case 'PUSH': this.handlePush(nextProps); break
-        case 'POP': this.handlePop(nextProps); break
-      }
+  componentWillReceiveProps (nextProps) {
+    const { innerRouter: newInnerRouter } = nextProps
+    const scenesLength = this.scenes().length
+    const { index: historyIndex } = newInnerRouter.history
+
+    switch (newInnerRouter.history.action) {
+      case 'REPLACE':
+        this.handleReplace(nextProps); break
+      case 'PUSH':
+        if (scenesLength !== historyIndex + 1) {
+          this.handlePush(nextProps)
+        }
+        break
+      case 'POP':
+        if (scenesLength === historyIndex + 2) {
+          this.handlePop(nextProps)
+        }
+        break
     }
   }
 
@@ -62,7 +72,8 @@ export class InnerStack extends Component {
 
   handlePush = (nextProps) => {
     const scenes = [...this.scenes(), nextProps.children]
-    this.setState({ scenes }, () => nextProps.animation.play({ toValue: scenes.length }))
+    this.setState({ scenes })
+    setTimeout(() => nextProps.animation.play({ toValue: scenes.length }), 10)
   }
 
   handleReplace = (nextProps) => {
@@ -72,6 +83,7 @@ export class InnerStack extends Component {
 
   render () {
     return <View style={styles.container}>
+      <Text>scenes length: {this.state.scenes.length}</Text>
       {this.scenes().map((scene, index) => (
         <SceneWrapper
           key={index}

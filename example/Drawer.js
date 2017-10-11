@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     paddingTop: 50,
-    top: 0,
+    top: 50,
     left: 0,
     width: '50%',
     height: '100%',
