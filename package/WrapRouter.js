@@ -1,10 +1,10 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
 
-export class WrapHistory extends Component {
+export class WrapRouter extends Component {
   static propTypes = {
     children: PropTypes.any.isRequired,
-    history: PropTypes.any.isRequired
+    router: PropTypes.object.isRequired
   }
 
   static childContextTypes = {
@@ -19,10 +19,7 @@ export class WrapHistory extends Component {
     return {
       router: {
         ...this.context.router,
-        history: {
-          ...this.context.router.history,
-          ...this.props.history
-        }
+        ...this.props.router
       }
     }
   }
