@@ -43,11 +43,11 @@ export class Animation extends Component {
   }
 
   play = (options = {}) => {
-    this.animate({ ...options, toValue: 1 })
+    this.animate({ toValue: 1, ...options })
   }
 
   rewind = (options = {}) => {
-    this.animate({ ...options, toValue: 0 })
+    this.animate({ toValue: 0, ...options })
   }
 
   animate = ({ toValue, duration, easing, callback }) => {
@@ -71,4 +71,4 @@ export class Animation extends Component {
   }
 }
 
-export const WithAnimation = renderChildrenComponentWithContext('WithAnimation', Animation.childContextTypes)
+export const WithAnimation = renderChildrenComponentWithContext('WithAnimation', Animation.childContextTypes, 'animation')

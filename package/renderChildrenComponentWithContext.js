@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
 
-export const renderChildrenComponentWithContext = (name, childContextTypes) => {
+export const renderChildrenComponentWithContext = (name, childContextTypes, key) => {
   class NewComponent extends Component {
     static displayName = name
 
@@ -12,7 +12,7 @@ export const renderChildrenComponentWithContext = (name, childContextTypes) => {
     }
 
     render () {
-      return this.props.children(this.context)
+      return this.props.children(key ? this.context[key] : this.context)
     }
   }
 
