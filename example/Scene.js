@@ -20,6 +20,13 @@ const styles = StyleSheet.create({
 })
 
 const BackButton = withRouter(({history}) => (<Button title='Back' onPress={() => history.goBack()} />))
+const BackToStartButton = ({index}) => (
+  <Route>
+    {({history}) => (
+      <Button title='Back to start' onPress={() => history.go(-index)} />
+    )}
+  </Route>
+)
 
 export class Scene extends Component {
   static propTypes = {
@@ -39,7 +46,6 @@ export class Scene extends Component {
             styles.container,
             {
               backgroundColor,
-
               left: interpolateAnimation({ inputRange: [0, 1, 2], outputRange: [width, width * 0.1, 0]})
             }
           ]}
@@ -59,6 +65,7 @@ export class Scene extends Component {
           </Route>
           {linkTo && <Link component={Button} to={linkTo} title={`Go to ${linkTo}`} />}
           {disableBack || <BackButton />}
+          {disableBack || <BackToStartButton index={index} />}
           <WithOuterRouter>
             <Route>
               {({location}) => (

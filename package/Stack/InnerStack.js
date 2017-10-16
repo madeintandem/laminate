@@ -53,9 +53,7 @@ export class InnerStack extends Component {
         }
         break
       case 'POP':
-        if (scenesLength === historyIndex + 2) {
-          this.handlePop(nextProps)
-        }
+        this.handlePop(nextProps)
         break
     }
   }
@@ -63,7 +61,7 @@ export class InnerStack extends Component {
   scenes = () => this.state.scenes
 
   handlePop = (nextProps) => {
-    const scenes = allButLast(this.scenes())
+    const scenes = this.scenes().slice(0, nextProps.innerRouter.history.index + 1)
     this.props.animation.rewind({
       toValue: scenes.length,
       callback: () => this.setState({ scenes })
