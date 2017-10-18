@@ -81,7 +81,6 @@ export class InnerStack extends Component {
 
   render () {
     return <View style={styles.container}>
-      <Text>scenes length: {this.state.scenes.length}</Text>
       {this.scenes().map((scene, index) => (
         <SceneWrapper
           key={index}

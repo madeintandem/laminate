@@ -40,7 +40,7 @@ export class Scene extends Component {
     const { width } = Dimensions.get('window')
 
     return <WithStackAnimation>
-      {({interpolateAnimation, index}) => (
+      {({interpolateAnimation, index, setAnimationValue}) => (
         <Animated.View
           style={[
             styles.container,
@@ -66,6 +66,7 @@ export class Scene extends Component {
           {linkTo && <Link component={Button} to={linkTo} title={`Go to ${linkTo}`} />}
           {disableBack || <BackButton />}
           {disableBack || <BackToStartButton index={index} />}
+          <Button title='move to 50%' onPress={() => setAnimationValue(0.5)} />
           <WithOuterRouter>
             <Route>
               {({location}) => (

@@ -12,14 +12,21 @@ export class SceneWrapper extends Component {
 
   static childContextTypes = {
     index: PropTypes.number.isRequired,
-    interpolateAnimation: PropTypes.func.isRequired
+    interpolateAnimation: PropTypes.func.isRequired,
+    setAnimationValue: PropTypes.func.isRequired
   }
 
   getChildContext () {
     return {
       index: this.props.index,
-      interpolateAnimation: this.interpolateAnimation
+      interpolateAnimation: this.interpolateAnimation,
+      setAnimationValue: this.setAnimationValue
     }
+  }
+
+  setAnimationValue = (value) => {
+    const { animationValue, index } = this.props
+    animationValue.setValue(index + value)
   }
 
   interpolateAnimation = ({ inputRange, outputRange }) => {
