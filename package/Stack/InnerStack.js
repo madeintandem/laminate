@@ -75,7 +75,7 @@ export class InnerStack extends Component {
 
   handleReplace = (nextProps) => {
     const scenes = [...allButLast(this.scenes()), nextProps.children]
-    this.setState({ scenes })
+    this.setState({ scenes }, () => nextProps.animation.play({ toValue: scenes.length }))
   }
 
   render () {
