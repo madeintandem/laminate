@@ -101,9 +101,9 @@ export class SwipeCatcher extends Component {
 
       return this.invokeForCurrentDirection({
         leftToRight: () => pageX <= edgeThreshold && dx > 0,
-        rightToLeft: () => pageX >= edgeThreshold && dx > 0,
+        rightToLeft: () => pageX <= edgeThreshold && dx < 0,
         topToBottom: () => pageY <= edgeThreshold && dy > 0,
-        bottomToTop: () => pageY >= edgeThreshold && dy > 0
+        bottomToTop: () => pageY <= edgeThreshold && dy < 0
       })
     },
 
