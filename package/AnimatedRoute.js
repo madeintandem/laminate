@@ -31,8 +31,7 @@ class InnerAnimatedRoute extends Component {
   }
 
   enter = (children) => {
-    this.setState({ children })
-    setTimeout(this.props.animation.play, 100)
+    this.setState({ children }, this.props.animation.play)
   }
 
   exit = () => {

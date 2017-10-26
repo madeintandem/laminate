@@ -70,8 +70,7 @@ export class InnerStack extends Component {
 
   handlePush = (nextProps) => {
     const scenes = [...this.scenes(), nextProps.children]
-    this.setState({ scenes })
-    setTimeout(() => nextProps.animation.play({ toValue: scenes.length }), 10)
+    this.setState({ scenes }, () => nextProps.animation.play({ toValue: scenes.length }))
   }
 
   handleReplace = (nextProps) => {
