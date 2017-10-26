@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
-import { Route } from 'react-router-native'
-import { Animation } from './Animation'
+import { Component } from 'react'
+import { Animation } from '../Animation'
 
-class InnerAnimatedRoute extends Component {
+export class InnerAnimatedRoute extends Component {
   static propTypes = {
     ...Animation.childContextTypes
   }
@@ -48,27 +47,5 @@ class InnerAnimatedRoute extends Component {
 
   render () {
     return this.state.children
-  }
-}
-
-export class AnimatedRoute extends Component {
-  static propTypes = {
-    ...Route.propTypes
-  }
-
-  render () {
-    const { component: GivenComponent, ...otherProps } = this.props
-
-    return <Animation {...this.props}>
-      {(animation) => (
-        <Route {...otherProps}>
-          {(routerProps) => (
-            <InnerAnimatedRoute animation={animation}>
-              {routerProps.match && <GivenComponent {...routerProps} animation={animation.value} />}
-            </InnerAnimatedRoute>
-          )}
-        </Route>
-      )}
-    </Animation>
   }
 }
