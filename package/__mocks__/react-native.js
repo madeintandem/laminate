@@ -17,7 +17,7 @@ class Value {
 const AnimatedView = ({ children }) => children
 AnimatedView.displayName = 'Animated.View'
 
-const animatedTimingStart = jest.fn()
+const animatedTimingStart = jest.fn((func) => func && func())
 const Animated = {
   Value,
   View: AnimatedView,
@@ -26,6 +26,8 @@ const Animated = {
 }
 
 const Dimensions = { get: jest.fn(() => ({ width: 375, height: 667 })) }
+
+const Easing = { inOut: jest.fn() }
 
 const PanResponder = { create: jest.fn((args) => args) }
 
@@ -36,6 +38,7 @@ const StyleSheet = { create: jest.fn(styles => styles) }
 export {
   Animated,
   Dimensions,
+  Easing,
   PanResponder,
   StyleSheet,
   View

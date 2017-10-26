@@ -25,7 +25,7 @@ export class Animation extends Component {
   }
 
   state = {
-    animation: this.props.animation || new Animated.Value(0)
+    animation: new Animated.Value(0)
   }
 
   getChildContext () {
@@ -33,13 +33,9 @@ export class Animation extends Component {
       animation: {
         play: this.play,
         rewind: this.rewind,
-        value: this.animation()
+        value: this.state.animation
       }
     }
-  }
-
-  animation = () => {
-    return this.props.animation || this.state.animation
   }
 
   play = (options = {}) => {
@@ -51,7 +47,7 @@ export class Animation extends Component {
   }
 
   animate = ({ toValue, duration, easing, callback }) => {
-    Animated.timing(this.animation(), {
+    Animated.timing(this.state.animation, {
       toValue,
       duration: duration || this.props.duration,
       easing: easing || this.props.easing

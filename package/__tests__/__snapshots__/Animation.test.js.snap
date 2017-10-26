@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#render renders a children function with arguments 1`] = `
+<Child
+  animation={
+    Object {
+      "play": [Function],
+      "rewind": [Function],
+      "value": Value {
+        "value": 0,
+      },
+    }
+  }
+/>
+`;
+
+exports[`#render renders a regular children 1`] = `<Child />`;
