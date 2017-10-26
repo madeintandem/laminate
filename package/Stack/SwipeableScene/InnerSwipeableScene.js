@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Route } from 'react-router-native'
-import { SwipeCatcher } from '../SwipeCatcher'
-import { WithStackAnimation } from './SceneWrapper'
+import { SwipeCatcher } from '../../SwipeCatcher'
 
-class InnerSwipeableScene extends Component {
+export class InnerSwipeableScene extends Component {
   static defaultProps = {
     completeThreshold: 0.5
   }
@@ -43,24 +41,5 @@ class InnerSwipeableScene extends Component {
       onGestureRelease={this.handleGestureRelease}
       onGestureTerminate={this.handleGestureTerminate}
     />
-  }
-}
-
-export class SwipeableScene extends Component {
-  render () {
-    return <WithStackAnimation>
-      {({ setAnimationValue }) => (
-        <Route>
-          {({ history, location }) => (
-            <InnerSwipeableScene
-              {...this.props}
-              setAnimationValue={setAnimationValue}
-              history={history}
-              location={location}
-            />
-          )}
-        </Route>
-      )}
-    </WithStackAnimation>
   }
 }
