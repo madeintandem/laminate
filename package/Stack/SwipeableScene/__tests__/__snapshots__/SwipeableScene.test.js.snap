@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders properly 1`] = `
+<StaticRouter
+  basename=""
+  context={Object {}}
+  location="/"
+>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <ContextMock>
+      <SwipeableScene
+        are="fun"
+        some="props"
+      >
+        <WithStackAnimation>
+          <Route>
+            <InnerSwipeableScene
+              are="fun"
+              completeThreshold={0.5}
+              history={
+                Object {
+                  "action": "POP",
+                  "block": [Function],
+                  "createHref": [Function],
+                  "go": [Function],
+                  "goBack": [Function],
+                  "goForward": [Function],
+                  "listen": [Function],
+                  "location": Object {
+                    "hash": "",
+                    "pathname": "/",
+                    "search": "",
+                  },
+                  "push": [Function],
+                  "replace": [Function],
+                }
+              }
+              location={
+                Object {
+                  "hash": "",
+                  "pathname": "/",
+                  "search": "",
+                }
+              }
+              setAnimationValue={[Function]}
+              some="props"
+            >
+              <SwipeCatcher
+                are="fun"
+                completeThreshold={0.5}
+                direction="leftToRight"
+                history={
+                  Object {
+                    "action": "POP",
+                    "block": [Function],
+                    "createHref": [Function],
+                    "go": [Function],
+                    "goBack": [Function],
+                    "goForward": [Function],
+                    "listen": [Function],
+                    "location": Object {
+                      "hash": "",
+                      "pathname": "/",
+                      "search": "",
+                    },
+                    "push": [Function],
+                    "replace": [Function],
+                  }
+                }
+                location={
+                  Object {
+                    "hash": "",
+                    "pathname": "/",
+                    "search": "",
+                  }
+                }
+                onGestureRelease={[Function]}
+                onGestureTerminate={[Function]}
+                onMove={[Function]}
+                setAnimationValue={[Function]}
+                some="props"
+              >
+                <View
+                  onMoveShouldSetPanResponderCapture={[Function]}
+                  onPanResponderGrant={[Function]}
+                  onPanResponderMove={[Function]}
+                  onPanResponderRelease={[Function]}
+                  onPanResponderTerminate={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "height": "100%",
+                        "position": "absolute",
+                        "width": "100%",
+                      },
+                      undefined,
+                    ]
+                  }
+                >
+                  <div>
+                    <Child>
+                      <div>
+                        a child
+                      </div>
+                    </Child>
+                  </div>
+                </View>
+              </SwipeCatcher>
+            </InnerSwipeableScene>
+          </Route>
+        </WithStackAnimation>
+      </SwipeableScene>
+    </ContextMock>
+  </Router>
+</StaticRouter>
+`;
