@@ -29,7 +29,7 @@ const Dimensions = { get: jest.fn(() => ({ width: 375, height: 667 })) }
 
 const Easing = { inOut: jest.fn() }
 
-const PanResponder = { create: jest.fn((args) => args) }
+const PanResponder = { create: jest.fn((args) => ({ panHandlers: args })) }
 
 const View = ({ children }) => children
 

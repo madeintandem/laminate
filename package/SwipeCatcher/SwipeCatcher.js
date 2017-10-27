@@ -70,9 +70,9 @@ export class SwipeCatcher extends Component {
 
     const result = this.invokeForCurrentDirection({
       [LEFT_TO_RIGHT]: () => dx / width,
-      [RIGHT_TO_LEFT]: () => 1 - dx / width,
+      [RIGHT_TO_LEFT]: () => -(dx / width),
       [TOP_TO_BOTTOM]: () => dy / height,
-      [BOTTOM_TO_TOP]: () => 1 - dy / height
+      [BOTTOM_TO_TOP]: () => -(dy / height)
     })
 
     return Math.max(result, 0)
