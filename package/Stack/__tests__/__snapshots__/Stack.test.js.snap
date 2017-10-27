@@ -1,0 +1,193 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders properly 1`] = `
+<StaticRouter
+  basename=""
+  context={Object {}}
+  location="/bar"
+>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/bar",
+          "search": "",
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <Stack
+      initialLocation="/foo"
+    >
+      <Route>
+        <MemoryRouter
+          initialEntries={
+            Array [
+              "/foo",
+            ]
+          }
+        >
+          <StaticRouter
+            basename=""
+            context={Object {}}
+            initialEntries={
+              Array [
+                "/foo",
+              ]
+            }
+            location="/"
+          >
+            <Router
+              history={
+                Object {
+                  "action": "POP",
+                  "block": [Function],
+                  "createHref": [Function],
+                  "go": [Function],
+                  "goBack": [Function],
+                  "goForward": [Function],
+                  "listen": [Function],
+                  "location": Object {
+                    "hash": "",
+                    "pathname": "/",
+                    "search": "",
+                  },
+                  "push": [Function],
+                  "replace": [Function],
+                }
+              }
+              initialEntries={
+                Array [
+                  "/foo",
+                ]
+              }
+            >
+              <Route>
+                <Animation
+                  duration={375}
+                >
+                  <InnerStack
+                    animation={
+                      Object {
+                        "play": [Function],
+                        "rewind": [Function],
+                        "value": Value {
+                          "value": 0,
+                        },
+                      }
+                    }
+                    innerRouter={
+                      Object {
+                        "history": Object {
+                          "action": "POP",
+                          "block": [Function],
+                          "createHref": [Function],
+                          "go": [Function],
+                          "goBack": [Function],
+                          "goForward": [Function],
+                          "listen": [Function],
+                          "location": Object {
+                            "hash": "",
+                            "pathname": "/",
+                            "search": "",
+                          },
+                          "push": [Function],
+                          "replace": [Function],
+                        },
+                        "location": Object {
+                          "hash": "",
+                          "pathname": "/",
+                          "search": "",
+                        },
+                        "match": Object {
+                          "isExact": true,
+                          "params": Object {},
+                          "path": "/",
+                          "url": "/",
+                        },
+                        "staticContext": Object {},
+                      }
+                    }
+                    outerRouter={
+                      Object {
+                        "history": Object {
+                          "action": "POP",
+                          "block": [Function],
+                          "createHref": [Function],
+                          "go": [Function],
+                          "goBack": [Function],
+                          "goForward": [Function],
+                          "listen": [Function],
+                          "location": Object {
+                            "hash": "",
+                            "pathname": "/bar",
+                            "search": "",
+                          },
+                          "push": [Function],
+                          "replace": [Function],
+                        },
+                        "location": Object {
+                          "hash": "",
+                          "pathname": "/bar",
+                          "search": "",
+                        },
+                        "match": Object {
+                          "isExact": false,
+                          "params": Object {},
+                          "path": "/",
+                          "url": "/",
+                        },
+                        "staticContext": Object {},
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "height": "100%",
+                          "width": "100%",
+                        }
+                      }
+                    >
+                      <div>
+                        <SceneWrapper
+                          animationValue={
+                            Value {
+                              "value": 0,
+                            }
+                          }
+                          index={0}
+                        >
+                          <Switch
+                            location={
+                              Object {
+                                "hash": "",
+                                "pathname": "/",
+                                "search": "",
+                              }
+                            }
+                          />
+                        </SceneWrapper>
+                      </div>
+                    </View>
+                  </InnerStack>
+                </Animation>
+              </Route>
+            </Router>
+          </StaticRouter>
+        </MemoryRouter>
+      </Route>
+    </Stack>
+  </Router>
+</StaticRouter>
+`;

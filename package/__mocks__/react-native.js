@@ -1,4 +1,5 @@
 /* eslint-env jest */
+import React from 'react'
 
 class Value {
   constructor (value) {
@@ -31,7 +32,7 @@ const Easing = { inOut: jest.fn() }
 
 const PanResponder = { create: jest.fn((args) => ({ panHandlers: args })) }
 
-const View = ({ children }) => children
+const View = ({ children }) => <div>{children}</div> // eslint-disable-line
 
 const StyleSheet = { create: jest.fn(styles => styles) }
 
