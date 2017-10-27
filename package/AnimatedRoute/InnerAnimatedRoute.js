@@ -34,8 +34,10 @@ export class InnerAnimatedRoute extends Component {
   }
 
   exit = () => {
-    this.props.animation.rewind({ callback: () => this.setState({ children: null }) })
+    this.props.animation.rewind({ callback: this.clearChildren })
   }
+
+  clearChildren = () => this.setState({ children: null })
 
   isEntering = (currentChildren, nextChildren) => {
     return !currentChildren && nextChildren

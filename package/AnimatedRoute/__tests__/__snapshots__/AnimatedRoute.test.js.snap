@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`does not render the given component when the route does not match 1`] = `
+<StaticRouter
+  basename=""
+  context={Object {}}
+  location="/bar"
+>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/bar",
+          "search": "",
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <AnimatedRoute
+      another="prop"
+      component={[Function]}
+      path="/foo"
+    >
+      <Animation
+        another="prop"
+        component={[Function]}
+        duration={375}
+        path="/foo"
+      >
+        <Route
+          another="prop"
+          path="/foo"
+        >
+          <InnerAnimatedRoute
+            animation={
+              Object {
+                "play": [Function],
+                "rewind": [Function],
+                "value": Value {
+                  "value": 0,
+                },
+              }
+            }
+          />
+        </Route>
+      </Animation>
+    </AnimatedRoute>
+  </Router>
+</StaticRouter>
+`;
+
+exports[`renders the given component when the route matches 1`] = `
+<StaticRouter
+  basename=""
+  context={Object {}}
+  location="/foo"
+>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/foo",
+          "search": "",
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <AnimatedRoute
+      another="prop"
+      component={[Function]}
+      path="/foo"
+    >
+      <Animation
+        another="prop"
+        component={[Function]}
+        duration={375}
+        path="/foo"
+      >
+        <Route
+          another="prop"
+          path="/foo"
+        >
+          <InnerAnimatedRoute
+            animation={
+              Object {
+                "play": [Function],
+                "rewind": [Function],
+                "value": Value {
+                  "value": 0,
+                },
+              }
+            }
+          >
+            <Child
+              animation={
+                Value {
+                  "value": 0,
+                }
+              }
+              history={
+                Object {
+                  "action": "POP",
+                  "block": [Function],
+                  "createHref": [Function],
+                  "go": [Function],
+                  "goBack": [Function],
+                  "goForward": [Function],
+                  "listen": [Function],
+                  "location": Object {
+                    "hash": "",
+                    "pathname": "/foo",
+                    "search": "",
+                  },
+                  "push": [Function],
+                  "replace": [Function],
+                }
+              }
+              location={
+                Object {
+                  "hash": "",
+                  "pathname": "/foo",
+                  "search": "",
+                }
+              }
+              match={
+                Object {
+                  "isExact": true,
+                  "params": Object {},
+                  "path": "/foo",
+                  "url": "/foo",
+                }
+              }
+              staticContext={Object {}}
+            >
+              <div>
+                child
+              </div>
+            </Child>
+          </InnerAnimatedRoute>
+        </Route>
+      </Animation>
+    </AnimatedRoute>
+  </Router>
+</StaticRouter>
+`;
