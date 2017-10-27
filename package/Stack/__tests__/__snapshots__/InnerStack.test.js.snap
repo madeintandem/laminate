@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#render renders the scenes properly 1`] = `
+<View
+  style={
+    Object {
+      "height": "100%",
+      "width": "100%",
+    }
+  }
+>
+  <SceneWrapper
+    animationValue={
+      Value {
+        "value": 17,
+      }
+    }
+    index={0}
+  >
+    <Child
+      foo={1}
+    />
+  </SceneWrapper>
+  <SceneWrapper
+    animationValue={
+      Value {
+        "value": 17,
+      }
+    }
+    index={1}
+  >
+    <Child
+      foo={2}
+    />
+  </SceneWrapper>
+  <SceneWrapper
+    animationValue={
+      Value {
+        "value": 17,
+      }
+    }
+    index={2}
+  >
+    <Child
+      foo={3}
+    />
+  </SceneWrapper>
+  <SceneWrapper
+    animationValue={
+      Value {
+        "value": 17,
+      }
+    }
+    index={3}
+  >
+    <Child
+      foo={4}
+    />
+  </SceneWrapper>
+</View>
+`;
