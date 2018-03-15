@@ -12,7 +12,13 @@
   ],
   "main": "index.js",
   "files": [
-    "index.js"
+    "index.js",
+    "Stack",
+    "AnimatedRoute",
+    "SwipeCatcher",
+    "Animation.js",
+    "renderChildrenComponent.js",
+    "WrapRouter.js"
   ],
   "repository": "https://github.com/devmynd/laminate",
   "author": "Michael Crismali",
