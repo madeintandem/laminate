@@ -1,6 +1,6 @@
 {
   "name": "laminate",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Route stack components for React Router v4",
   "keywords": [
     "component",
