@@ -17,7 +17,7 @@
     "AnimatedRoute",
     "SwipeCatcher",
     "Animation.js",
-    "renderChildrenComponent.js",
+    "renderChildrenComponentWithContext.js",
     "WrapRouter.js"
   ],
   "repository": "https://github.com/devmynd/laminate",
