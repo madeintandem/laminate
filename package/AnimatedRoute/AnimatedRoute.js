@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router-native'
+import PropTypes from 'prop-types'
 import { Animation } from '../Animation'
 import { InnerAnimatedRoute } from './InnerAnimatedRoute'
 
 export class AnimatedRoute extends Component {
   static propTypes = {
-    ...Route.propTypes
+    component: PropTypes.func
   }
 
   render () {
