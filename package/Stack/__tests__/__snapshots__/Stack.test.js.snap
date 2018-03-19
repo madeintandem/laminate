@@ -27,6 +27,8 @@ exports[`renders properly 1`] = `
     }
   >
     <Stack
+      duration={123}
+      easing="easing"
       initialLocation="/foo"
     >
       <Route>
@@ -74,7 +76,8 @@ exports[`renders properly 1`] = `
             >
               <Route>
                 <Animation
-                  duration={375}
+                  duration={123}
+                  easing="easing"
                 >
                   <InnerStack
                     animation={

@@ -11,6 +11,8 @@ export class Stack extends Component {
 
   static propTypes = {
     children: PropTypes.any.isRequired,
+    easing: PropTypes.any,
+    duration: PropTypes.number,
     initialLocation: PropTypes.any.isRequired
   }
 
@@ -20,7 +22,10 @@ export class Stack extends Component {
         <MemoryRouter initialEntries={[this.props.initialLocation]}>
           <Route>
             {(innerRouter) => (
-              <Animation>
+              <Animation
+                easing={this.props.easing}
+                duration={this.props.duration}
+              >
                 {animation => (
                   <InnerStack
                     animation={animation}
