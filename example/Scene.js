@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Animated, Dimensions, View, StyleSheet, Text, Button } from 'react-native'
 import { Link, Route, withRouter } from 'react-router-native'
-import { WithStackAnimation, WithOuterRouter, SwipeableScene } from 'laminate'
+import { WithStackAnimation, SwipeableScene } from 'laminate'
 
 const styles = StyleSheet.create({
   container: {
@@ -30,22 +30,6 @@ const BackToStartButton = ({index}) => (
   <Route>
     {({history}) => (
       <Button title='Back to start' onPress={() => history.go(-index)} />
-    )}
-  </Route>
-)
-
-const CurrentRoutes = ({text}) => (
-  <Route>
-    {({location}) => (
-      <WithOuterRouter>
-        <Route>
-          {({location: outerLocation}) => (
-            <Text style={styles.text}>
-              This is scene {text}: {location.pathname} {outerLocation.pathname}
-            </Text>
-          )}
-        </Route>
-      </WithOuterRouter>
     )}
   </Route>
 )
@@ -81,13 +65,9 @@ export class Scene extends Component {
       <WithStackAnimation>
         {({interpolateAnimation, index, setAnimationValue}) => (
           <Animated.View style={[ styles.container, this.containerStyles(interpolateAnimation) ]}>
-              <CurrentRoutes text={text} />
               {linkTo && <Link component={Button} to={linkTo} title={`Go to ${linkTo}`} />}
               {disableBack || <BackButton />}
-              {disableBack || <BackToStartButton index={index} />}
-              <WithOuterRouter>
-                <OpenDrawer />
-              </WithOuterRouter>
+              <OpenDrawer />
             </Animated.View>
           )}
         </WithStackAnimation>

@@ -32,26 +32,23 @@ exports[`renders properly 1`] = `
       initialLocation="/foo"
     >
       <Route>
-        <MemoryRouter
-          initialEntries={
-            Array [
-              "/foo",
-            ]
-          }
+        <Animation
+          duration={123}
+          easing="easing"
         >
-          <StaticRouter
-            basename=""
-            context={Object {}}
-            initialEntries={
-              Array [
-                "/foo",
-              ]
+          <InnerStack
+            animation={
+              Object {
+                "play": [Function],
+                "rewind": [Function],
+                "value": Value {
+                  "value": 0,
+                },
+              }
             }
-            location="/"
-          >
-            <Router
-              history={
-                Object {
+            router={
+              Object {
+                "history": Object {
                   "action": "POP",
                   "block": [Function],
                   "createHref": [Function],
@@ -61,134 +58,48 @@ exports[`renders properly 1`] = `
                   "listen": [Function],
                   "location": Object {
                     "hash": "",
-                    "pathname": "/",
+                    "pathname": "/bar",
                     "search": "",
                   },
                   "push": [Function],
                   "replace": [Function],
+                },
+                "location": Object {
+                  "hash": "",
+                  "pathname": "/bar",
+                  "search": "",
+                },
+                "match": Object {
+                  "isExact": false,
+                  "params": Object {},
+                  "path": "/",
+                  "url": "/",
+                },
+                "staticContext": Object {},
+              }
+            }
+          >
+            <SceneWrapper
+              animationValue={
+                Value {
+                  "value": 0,
                 }
               }
-              initialEntries={
-                Array [
-                  "/foo",
-                ]
-              }
+              index={0}
+              key="0"
             >
-              <Route>
-                <Animation
-                  duration={123}
-                  easing="easing"
-                >
-                  <InnerStack
-                    animation={
-                      Object {
-                        "play": [Function],
-                        "rewind": [Function],
-                        "value": Value {
-                          "value": 0,
-                        },
-                      }
-                    }
-                    innerRouter={
-                      Object {
-                        "history": Object {
-                          "action": "POP",
-                          "block": [Function],
-                          "createHref": [Function],
-                          "go": [Function],
-                          "goBack": [Function],
-                          "goForward": [Function],
-                          "listen": [Function],
-                          "location": Object {
-                            "hash": "",
-                            "pathname": "/",
-                            "search": "",
-                          },
-                          "push": [Function],
-                          "replace": [Function],
-                        },
-                        "location": Object {
-                          "hash": "",
-                          "pathname": "/",
-                          "search": "",
-                        },
-                        "match": Object {
-                          "isExact": true,
-                          "params": Object {},
-                          "path": "/",
-                          "url": "/",
-                        },
-                        "staticContext": Object {},
-                      }
-                    }
-                    outerRouter={
-                      Object {
-                        "history": Object {
-                          "action": "POP",
-                          "block": [Function],
-                          "createHref": [Function],
-                          "go": [Function],
-                          "goBack": [Function],
-                          "goForward": [Function],
-                          "listen": [Function],
-                          "location": Object {
-                            "hash": "",
-                            "pathname": "/bar",
-                            "search": "",
-                          },
-                          "push": [Function],
-                          "replace": [Function],
-                        },
-                        "location": Object {
-                          "hash": "",
-                          "pathname": "/bar",
-                          "search": "",
-                        },
-                        "match": Object {
-                          "isExact": false,
-                          "params": Object {},
-                          "path": "/",
-                          "url": "/",
-                        },
-                        "staticContext": Object {},
-                      }
-                    }
-                  >
-                    <View
-                      style={
-                        Object {
-                          "height": "100%",
-                          "width": "100%",
-                        }
-                      }
-                    >
-                      <div>
-                        <SceneWrapper
-                          animationValue={
-                            Value {
-                              "value": 0,
-                            }
-                          }
-                          index={0}
-                        >
-                          <Switch
-                            location={
-                              Object {
-                                "hash": "",
-                                "pathname": "/",
-                                "search": "",
-                              }
-                            }
-                          />
-                        </SceneWrapper>
-                      </div>
-                    </View>
-                  </InnerStack>
-                </Animation>
-              </Route>
-            </Router>
-          </StaticRouter>
-        </MemoryRouter>
+              <Switch
+                location={
+                  Object {
+                    "hash": "",
+                    "pathname": "/bar",
+                    "search": "",
+                  }
+                }
+              />
+            </SceneWrapper>
+          </InnerStack>
+        </Animation>
       </Route>
     </Stack>
   </Router>

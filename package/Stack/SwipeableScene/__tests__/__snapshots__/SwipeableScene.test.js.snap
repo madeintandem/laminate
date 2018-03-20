@@ -61,7 +61,7 @@ exports[`renders properly 1`] = `
                   "search": "",
                 }
               }
-              setAnimationValue={[Function]}
+              setAnimationValue={[MockFunction]}
               some="props"
             >
               <SwipeCatcher
@@ -96,7 +96,7 @@ exports[`renders properly 1`] = `
                 onGestureRelease={[Function]}
                 onGestureTerminate={[Function]}
                 onMove={[Function]}
-                setAnimationValue={[Function]}
+                setAnimationValue={[MockFunction]}
                 some="props"
               >
                 <View

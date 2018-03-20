@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Route, Switch, MemoryRouter } from 'react-router-native'
+import { Route, Switch } from 'react-router-native'
 import { Animation } from '../Animation'
 import { InnerStack } from './InnerStack'
 
@@ -18,29 +18,16 @@ export class Stack extends Component {
 
   render () {
     return <Route>
-      {(outerRouter) => (
-        <MemoryRouter initialEntries={[this.props.initialLocation]}>
-          <Route>
-            {(innerRouter) => (
-              <Animation
-                easing={this.props.easing}
-                duration={this.props.duration}
-              >
-                {animation => (
-                  <InnerStack
-                    animation={animation}
-                    innerRouter={innerRouter}
-                    outerRouter={outerRouter}
-                  >
-                    <Switch location={innerRouter.location}>
-                      {this.props.children}
-                    </Switch>
-                  </InnerStack>
-                )}
-              </Animation>
-            )}
-          </Route>
-        </MemoryRouter>
+      {(router) => (
+        <Animation easing={this.props.easing} duration={this.props.duration}>
+          {animation => (
+            <InnerStack animation={animation} router={router}>
+              <Switch location={router.location}>
+                {this.props.children}
+              </Switch>
+            </InnerStack>
+          )}
+        </Animation>
       )}
     </Route>
   }

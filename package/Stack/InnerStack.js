@@ -1,15 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet } from 'react-native'
+import { matchPath } from 'react-router-native'
 import { Animation } from '../Animation'
 import { SceneWrapper } from './SceneWrapper'
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%'
-  }
-})
 
 const allButLast = (collection) => collection.slice(0, collection.length - 1)
 
@@ -17,22 +10,11 @@ export class InnerStack extends Component {
   static propTypes = {
     ...Animation.childContextTypes,
     children: PropTypes.any.isRequired,
-    innerRouter: PropTypes.object.isRequired,
-    outerRouter: PropTypes.object.isRequired
-  }
-
-  static childContextTypes = {
-    outerRouter: PropTypes.object.isRequired
+    router: PropTypes.object.isRequired
   }
 
   state = {
     scenes: [this.props.children]
-  }
-
-  getChildContext () {
-    return {
-      outerRouter: this.props.outerRouter
-    }
   }
 
   componentDidMount () {
@@ -40,28 +22,35 @@ export class InnerStack extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    const { innerRouter: newInnerRouter } = nextProps
-    const scenesLength = this.scenes().length
-    const { index: historyIndex } = newInnerRouter.history
+    const { router } = nextProps
+    if (router.location.key === this.props.router.location.key) {
+      return
+    }
+    if (!this.isRelevantChange(nextProps)) {
+      return
+    }
 
-    switch (newInnerRouter.history.action) {
+    switch (router.history.action) {
       case 'REPLACE':
         this.handleReplace(nextProps); break
       case 'PUSH':
-        if (scenesLength !== historyIndex + 1) {
-          this.handlePush(nextProps)
-        }
-        break
+        this.handlePush(nextProps); break
       case 'POP':
-        this.handlePop(nextProps)
-        break
+        this.handlePop(nextProps); break
     }
+  }
+
+  isRelevantChange = (nextProps) => {
+    const routes = nextProps.children.props.children
+    const oldMatchingRoutes = routes.filter((route) => matchPath(this.props.router.location.pathname, { ...route.props, exact: true }))
+    const newMatchingRoutes = routes.filter((route) => matchPath(nextProps.router.location.pathname, { ...route.props, exact: true }))
+    return !!newMatchingRoutes.length && !!oldMatchingRoutes.length
   }
 
   scenes = () => this.state.scenes
 
   handlePop = (nextProps) => {
-    const scenes = this.scenes().slice(0, nextProps.innerRouter.history.index + 1)
+    const scenes = allButLast(this.scenes())
     this.props.animation.rewind({
       toValue: scenes.length,
       callback: () => this.setState({ scenes })
@@ -79,16 +68,14 @@ export class InnerStack extends Component {
   }
 
   render () {
-    return <View style={styles.container}>
-      {this.scenes().map((scene, index) => (
-        <SceneWrapper
-          key={index}
-          index={index}
-          animationValue={this.props.animation.value}
-        >
-          {scene}
-        </SceneWrapper>
-      ))}
-    </View>
+    return this.scenes().map((scene, index) => (
+      <SceneWrapper
+        key={index}
+        index={index}
+        animationValue={this.props.animation.value}
+      >
+        {scene}
+      </SceneWrapper>
+    ))
   }
 }
