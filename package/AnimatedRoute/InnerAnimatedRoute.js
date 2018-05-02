@@ -1,11 +1,6 @@
 import { Component } from 'react'
-import { Animation } from '../Animation'
 
 export class InnerAnimatedRoute extends Component {
-  static propTypes = {
-    ...Animation.childContextTypes
-  }
-
   state = {
     children: this.props.children
   }

@@ -6,14 +6,14 @@ import { SceneWrapper } from '../SceneWrapper'
 
 const Child = () => 'a child'
 
-describe('#getChildContext', () => {
+describe('#sceneWrapperProps', () => {
   it('has the index, interpolateAnimation, and setAnimationValue', () => {
     const animationValue = new Animated.Value(5)
     const subject = shallow(<SceneWrapper index={17} animationValue={animationValue}>
       <Child />
     </SceneWrapper>)
 
-    expect(subject.instance().getChildContext()).toEqual({
+    expect(subject.instance().sceneWrapperProps()).toEqual({
       index: 17,
       interpolateAnimation: subject.instance().interpolateAnimation,
       setAnimationValue: subject.instance().setAnimationValue

@@ -1,18 +1,10 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { matchPath } from 'react-router-native'
-import { Animation } from '../Animation'
 import { SceneWrapper } from './SceneWrapper'
 
 const allButLast = (collection) => collection.slice(0, collection.length - 1)
 
 export class InnerStack extends Component {
-  static propTypes = {
-    ...Animation.childContextTypes,
-    children: PropTypes.any.isRequired,
-    router: PropTypes.object.isRequired
-  }
-
   state = {
     scenes: [this.props.children]
   }

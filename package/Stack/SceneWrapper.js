@@ -1,22 +1,9 @@
-import { Component } from 'react'
-import { Animated } from 'react-native'
-import PropTypes from 'prop-types'
-import { renderChildrenComponentWithContext } from '../renderChildrenComponentWithContext'
+import React, { Component } from 'react'
+
+const { Provider, Consumer } = React.createContext()
 
 export class SceneWrapper extends Component {
-  static propTypes = {
-    animationValue: PropTypes.instanceOf(Animated.Value).isRequired,
-    children: PropTypes.any.isRequired,
-    index: PropTypes.number.isRequired
-  }
-
-  static childContextTypes = {
-    index: PropTypes.number.isRequired,
-    interpolateAnimation: PropTypes.func.isRequired,
-    setAnimationValue: PropTypes.func.isRequired
-  }
-
-  getChildContext () {
+  sceneWrapperProps = () => {
     return {
       index: this.props.index,
       interpolateAnimation: this.interpolateAnimation,
@@ -38,8 +25,10 @@ export class SceneWrapper extends Component {
   }
 
   render () {
-    return this.props.children
+    return <Provider value={this.sceneWrapperProps()}>
+      {this.props.children}
+    </Provider>
   }
 }
 
-export const WithStackAnimation = renderChildrenComponentWithContext('WithStackAnimation', SceneWrapper.childContextTypes)
+export const WithStackAnimation = Consumer

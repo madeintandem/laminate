@@ -34,7 +34,6 @@ exports[`does not render the given component when the route does not match 1`] =
       <Animation
         another="prop"
         component={[Function]}
-        duration={375}
         path="/foo"
       >
         <Route
@@ -44,8 +43,8 @@ exports[`does not render the given component when the route does not match 1`] =
           <InnerAnimatedRoute
             animation={
               Object {
-                "play": [Function],
-                "rewind": [Function],
+                "play": [MockFunction],
+                "rewind": [MockFunction],
                 "value": Value {
                   "value": 0,
                 },
@@ -93,7 +92,6 @@ exports[`renders the given component when the route matches 1`] = `
       <Animation
         another="prop"
         component={[Function]}
-        duration={375}
         path="/foo"
       >
         <Route
@@ -103,8 +101,12 @@ exports[`renders the given component when the route matches 1`] = `
           <InnerAnimatedRoute
             animation={
               Object {
-                "play": [Function],
-                "rewind": [Function],
+                "play": [MockFunction] {
+                  "calls": Array [
+                    Array [],
+                  ],
+                },
+                "rewind": [MockFunction],
                 "value": Value {
                   "value": 0,
                 },

@@ -15,16 +15,14 @@ describe('state', () => {
   })
 })
 
-describe('#getChildContext', () => {
+describe('#animationProps', () => {
   it('has animation with play, rewind, and value', () => {
     const subject = shallow(<Animation><Child /></Animation>)
 
-    expect(subject.instance().getChildContext()).toEqual({
-      animation: {
-        play: subject.instance().play,
-        rewind: subject.instance().rewind,
-        value: subject.state('animation')
-      }
+    expect(subject.instance().animationProps()).toEqual({
+      play: subject.instance().play,
+      rewind: subject.instance().rewind,
+      value: subject.state('animation')
     })
   })
 })

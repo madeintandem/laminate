@@ -26,16 +26,47 @@ exports[`renders properly 1`] = `
       }
     }
   >
-    <ContextMock>
-      <SwipeableScene
-        are="fun"
-        some="props"
-      >
-        <WithStackAnimation>
-          <Route>
-            <InnerSwipeableScene
+    <SwipeableScene
+      are="fun"
+      some="props"
+    >
+      <WithStackAnimation>
+        <Route>
+          <InnerSwipeableScene
+            are="fun"
+            completeThreshold={0.5}
+            history={
+              Object {
+                "action": "POP",
+                "block": [Function],
+                "createHref": [Function],
+                "go": [Function],
+                "goBack": [Function],
+                "goForward": [Function],
+                "listen": [Function],
+                "location": Object {
+                  "hash": "",
+                  "pathname": "/",
+                  "search": "",
+                },
+                "push": [Function],
+                "replace": [Function],
+              }
+            }
+            location={
+              Object {
+                "hash": "",
+                "pathname": "/",
+                "search": "",
+              }
+            }
+            setAnimationValue={[MockFunction]}
+            some="props"
+          >
+            <SwipeCatcher
               are="fun"
               completeThreshold={0.5}
+              direction="leftToRight"
               history={
                 Object {
                   "action": "POP",
@@ -61,75 +92,42 @@ exports[`renders properly 1`] = `
                   "search": "",
                 }
               }
+              onGestureRelease={[Function]}
+              onGestureTerminate={[Function]}
+              onMove={[Function]}
               setAnimationValue={[MockFunction]}
               some="props"
             >
-              <SwipeCatcher
-                are="fun"
-                completeThreshold={0.5}
-                direction="leftToRight"
-                history={
-                  Object {
-                    "action": "POP",
-                    "block": [Function],
-                    "createHref": [Function],
-                    "go": [Function],
-                    "goBack": [Function],
-                    "goForward": [Function],
-                    "listen": [Function],
-                    "location": Object {
-                      "hash": "",
-                      "pathname": "/",
-                      "search": "",
+              <View
+                onMoveShouldSetPanResponderCapture={[Function]}
+                onPanResponderGrant={[Function]}
+                onPanResponderMove={[Function]}
+                onPanResponderRelease={[Function]}
+                onPanResponderTerminate={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "height": "100%",
+                      "position": "absolute",
+                      "width": "100%",
                     },
-                    "push": [Function],
-                    "replace": [Function],
-                  }
+                    undefined,
+                  ]
                 }
-                location={
-                  Object {
-                    "hash": "",
-                    "pathname": "/",
-                    "search": "",
-                  }
-                }
-                onGestureRelease={[Function]}
-                onGestureTerminate={[Function]}
-                onMove={[Function]}
-                setAnimationValue={[MockFunction]}
-                some="props"
               >
-                <View
-                  onMoveShouldSetPanResponderCapture={[Function]}
-                  onPanResponderGrant={[Function]}
-                  onPanResponderMove={[Function]}
-                  onPanResponderRelease={[Function]}
-                  onPanResponderTerminate={[Function]}
-                  style={
-                    Array [
-                      Object {
-                        "height": "100%",
-                        "position": "absolute",
-                        "width": "100%",
-                      },
-                      undefined,
-                    ]
-                  }
-                >
-                  <div>
-                    <Child>
-                      <div>
-                        a child
-                      </div>
-                    </Child>
-                  </div>
-                </View>
-              </SwipeCatcher>
-            </InnerSwipeableScene>
-          </Route>
-        </WithStackAnimation>
-      </SwipeableScene>
-    </ContextMock>
+                <div>
+                  <Child>
+                    <div>
+                      a child
+                    </div>
+                  </Child>
+                </div>
+              </View>
+            </SwipeCatcher>
+          </InnerSwipeableScene>
+        </Route>
+      </WithStackAnimation>
+    </SwipeableScene>
   </Router>
 </StaticRouter>
 `;

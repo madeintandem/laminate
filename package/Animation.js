@@ -1,7 +1,8 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import { Animated, Easing } from 'react-native'
 import PropTypes from 'prop-types'
-import { renderChildrenComponentWithContext } from './renderChildrenComponentWithContext'
+
+const { Provider, Consumer } = React.createContext()
 
 export class Animation extends Component {
   static defaultProps = {
@@ -16,25 +17,15 @@ export class Animation extends Component {
     easing: PropTypes.any
   }
 
-  static childContextTypes = {
-    animation: PropTypes.shape({
-      play: PropTypes.func.isRequired,
-      rewind: PropTypes.func.isRequired,
-      value: PropTypes.instanceOf(Animated.Value).isRequired
-    }).isRequired
-  }
-
   state = {
     animation: new Animated.Value(0)
   }
 
-  getChildContext () {
+  animationProps = () => {
     return {
-      animation: {
-        play: this.play,
-        rewind: this.rewind,
-        value: this.state.animation
-      }
+      play: this.play,
+      rewind: this.rewind,
+      value: this.state.animation
     }
   }
 
@@ -56,15 +47,21 @@ export class Animation extends Component {
     })
   }
 
-  render () {
+  children = () => {
     const { children } = this.props
 
     if (typeof children === 'function') {
-      return children(this.getChildContext().animation)
+      return <Consumer>{children}</Consumer>
     } else {
       return children
     }
   }
+
+  render () {
+    return <Provider value={this.animationProps()}>
+      {this.children()}
+    </Provider>
+  }
 }
 
-export const WithAnimation = renderChildrenComponentWithContext('WithAnimation', Animation.childContextTypes, 'animation')
+export const WithAnimation = Consumer

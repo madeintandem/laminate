@@ -16,9 +16,7 @@
     "Stack",
     "AnimatedRoute",
     "SwipeCatcher",
-    "Animation.js",
-    "renderChildrenComponentWithContext.js",
-    "WrapRouter.js"
+    "Animation.js"
   ],
   "repository": "https://github.com/devmynd/laminate",
   "author": "Michael Crismali",
@@ -60,7 +58,7 @@
     "prop-types": "^15.5.10"
   },
   "peerDependencies": {
-    "react": ">=16.2.0",
+    "react": ">=16.3.0",
     "react-router-native": ">=4.2.0"
   },
   "devDependencies": {
@@ -82,9 +80,9 @@
     "jest": "^22.2.2",
     "jest-enzyme": "^4.2.0",
     "lodash": "^4.17.5",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
     "react-router-native": "^4.2.0",
-    "react-test-renderer": "^16.2.0"
+    "react-test-renderer": "^16.3.0"
   }
 }

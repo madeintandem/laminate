@@ -6,6 +6,14 @@ import { AnimatedRoute } from '../AnimatedRoute'
 
 const Child = () => <div>child</div>
 
+jest.mock('../../Animation', () => {
+  const { Animated } = require('react-native')
+  const Animation = ({ children }) => children({ play: jest.fn(), rewind: jest.fn(), value: new Animated.Value(0) })
+  return {
+    Animation
+  }
+})
+
 it('renders the given component when the route matches', () => {
   const subject = mount(<StaticRouter location='/foo' context={{}}>
     <AnimatedRoute path='/foo' component={Child} another='prop' />

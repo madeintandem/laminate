@@ -1,35 +1,28 @@
 /* eslint-env jest */
-import React, { Component } from 'react'
+import React from 'react'
 import { mount } from 'enzyme'
 import { StaticRouter } from 'react-router-native'
-import { SceneWrapper } from '../../SceneWrapper'
 import { SwipeableScene } from '../SwipeableScene'
 
 const Child = () => <div>a child</div>
 
-class ContextMock extends Component {
-  static childContextTypes = SceneWrapper.childContextTypes
+jest.mock('../../SceneWrapper', () => {
+  const WithStackAnimation = ({ children }) => children({
+    index: 2,
+    interpolateAnimation: jest.fn(),
+    setAnimationValue: jest.fn()
+  })
 
-  getChildContext () {
-    return {
-      index: 2,
-      interpolateAnimation: jest.fn(),
-      setAnimationValue: jest.fn()
-    }
+  return {
+    WithStackAnimation
   }
-
-  render () {
-    return this.props.children // eslint-disable-line
-  }
-}
+})
 
 it('renders properly', () => {
   const subject = mount(<StaticRouter context={{}}>
-    <ContextMock>
-      <SwipeableScene some='props' are='fun'>
-        <Child />
-      </SwipeableScene>
-    </ContextMock>
+    <SwipeableScene some='props' are='fun'>
+      <Child />
+    </SwipeableScene>
   </StaticRouter>)
   expect(subject).toMatchSnapshot()
 })

@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#render renders a children function with arguments 1`] = `
-<Child
-  animation={
+<[object Object]
+  value={
     Object {
       "play": [Function],
       "rewind": [Function],
@@ -11,7 +11,23 @@ exports[`#render renders a children function with arguments 1`] = `
       },
     }
   }
-/>
+>
+  <[object Object] />
+</[object Object]>
 `;
 
-exports[`#render renders a regular children 1`] = `<Child />`;
+exports[`#render renders a regular children 1`] = `
+<[object Object]
+  value={
+    Object {
+      "play": [Function],
+      "rewind": [Function],
+      "value": Value {
+        "value": 0,
+      },
+    }
+  }
+>
+  <Child />
+</[object Object]>
+`;

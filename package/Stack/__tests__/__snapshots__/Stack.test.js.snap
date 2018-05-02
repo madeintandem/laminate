@@ -39,8 +39,8 @@ exports[`renders properly 1`] = `
           <InnerStack
             animation={
               Object {
-                "play": [Function],
-                "rewind": [Function],
+                "play": [MockFunction],
+                "rewind": [MockFunction],
                 "value": Value {
                   "value": 0,
                 },
@@ -79,25 +79,15 @@ exports[`renders properly 1`] = `
               }
             }
           >
-            <SceneWrapper
-              animationValue={
-                Value {
-                  "value": 0,
+            <Switch
+              location={
+                Object {
+                  "hash": "",
+                  "pathname": "/bar",
+                  "search": "",
                 }
               }
-              index={0}
-              key="0"
-            >
-              <Switch
-                location={
-                  Object {
-                    "hash": "",
-                    "pathname": "/bar",
-                    "search": "",
-                  }
-                }
-              />
-            </SceneWrapper>
+            />
           </InnerStack>
         </Animation>
       </Route>
